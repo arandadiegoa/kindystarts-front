@@ -16,12 +16,16 @@ export function Navbar() {
     // Agrega más links aquí
   ];
 
-  const baseClasses = "text-sm font-medium transition-colors hover:text-primary";
+  const baseClasses =
+    "text-sm font-medium transition-colors hover:text-primary";
   const activeClass = "text-primary";
   const inactiveClass = "text-muted-foreground";
 
   return (
-    <header className="flex h-12 w-full items-center justify-between border-b bg-background px-4 md:px-6 shadow-sm">
+    <header
+      className="flex h-12 w-full items-center 
+    justify-between border-b bg-background px-4 md:px-6 shadow-md sticky top-0 z-50"
+    >
       {/* LADO IZQUIERDO: Logo y Nav para Desktop */}
       <div className="flex items-center gap-6">
         {/* Logo */}
@@ -41,10 +45,7 @@ export function Navbar() {
               to={link.to}
               // Esta función de NavLink aplica estilos si el link está "activo"
               className={({ isActive }) =>
-                cn(
-                  baseClasses,
-                  isActive ? activeClass : inactiveClass
-                )
+                cn(baseClasses, isActive ? activeClass : inactiveClass)
               }
             >
               {link.label}
@@ -90,10 +91,7 @@ export function Navbar() {
                       key={link.to}
                       to={link.to}
                       className={({ isActive }) =>
-                        cn(
-                          baseClasses,
-                          isActive ? activeClass : inactiveClass
-                        )
+                        cn(baseClasses, isActive ? activeClass : inactiveClass)
                       }
                     >
                       {link.label}
@@ -108,8 +106,8 @@ export function Navbar() {
                   <Button variant="ghost" asChild>
                     <Link to="/login">Login</Link>
                   </Button>
-                   </SheetClose>
-                    <SheetClose asChild>
+                </SheetClose>
+                <SheetClose asChild>
                   <Button asChild>
                     <Link to="/register">Registrarse</Link>
                   </Button>
