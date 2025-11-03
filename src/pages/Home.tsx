@@ -3,7 +3,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { carouselSlides } from "../data/activitiesData";
+import { carouselSlides } from "../data/serviceData";
 import { useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import Fade from "embla-carousel-fade";

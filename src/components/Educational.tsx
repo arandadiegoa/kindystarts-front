@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { pillarsData } from "@/data/activitiesData";
+import { pillarsData } from "@/data/serviceData";
 import { Smile } from "lucide-react";
 import { Link } from "react-router-dom";
 

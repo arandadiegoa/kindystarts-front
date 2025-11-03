@@ -20,9 +20,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
+import { users } from "@/data/serviceData";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hook/useAuth";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
 //Schema
 const formSchema = z.object({
-  email: z.email({
+  email: z.string().email({
     message: "Por favor, ingresa un email válido",
   }),
   password: z.string().min(6, {
@@ -31,6 +36,9 @@ const formSchema = z.object({
 });
 
 export function Login() {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
   //Validacion con Zod
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -43,7 +51,31 @@ export function Login() {
   type LoginFormValues = z.infer<typeof formSchema>;
 
   function onSubmit(values: LoginFormValues) {
-    console.log("Datos validados", values);
+    const foundUser = users.find(
+      (user) => user.mail === values.email && user.pass === values.password
+    );
+
+    if (foundUser) {
+      login(foundUser.role);
+
+      switch (foundUser.role) {
+        case "admin":
+          navigate("/adm/dashboard");
+          break;
+        case "teaching":
+          navigate("/teaching/myclass");
+          break;
+        case "family":
+          navigate("/family/homefamily");
+          break;
+        default:
+          navigate("/");
+      }
+    } else {
+      form.setError("root", {
+        message: "Email o contraseña incorrecta",
+      });
+    }
   }
 
   return (
@@ -89,6 +121,14 @@ export function Login() {
                   </FormItem>
                 )}
               />
+              {form.formState.errors.root && (
+                <Alert variant="destructive">
+                  <AlertTitle className="text-center" />
+                  <AlertDescription>
+                    {form.formState.errors.root.message}
+                  </AlertDescription>
+                </Alert>
+              )}
             </CardContent>
             <CardFooter>
               <Button type="submit" className="w-full">

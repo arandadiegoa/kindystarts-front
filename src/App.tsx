@@ -8,6 +8,9 @@ import { Contact } from "./pages/Contact";
 import { Footer } from "./components/Footer";
 import { StepsList } from "./pages/StepsList";
 import { Questions } from "./pages/Questions";
+import { MyClass } from "./pages/teaching/MyClass";
+import { Dashboard } from "./pages/adm/Dashboard";
+import { HomeFamily } from "./pages/family/HomeFamily";
 
 function App() {
   return (
@@ -21,6 +24,9 @@ function App() {
         <Route path="/contacto" element={<Contact />} />
         <Route path="/¿como-inscribirse?" element={<StepsList />} />
         <Route path="/preguntas-frecuentes" element={<Questions />} />
+        <Route path="/adm/dashboard" element={<Dashboard />} />
+        <Route path="teaching/myclass" element={<MyClass />} />
+        <Route path="/family/homefamily" element={<HomeFamily />} />
       </Routes>
       <Footer />
     </>

@@ -109,5 +109,22 @@ export const teamData = [
     role: "Prof. de Música",
     imgSrc: "/img/team/profesora_musica.jpg"
   }
+]
 
+export const users = [
+  {
+    role: 'admin',
+    mail: 'admin@kindyStarts.com',
+    pass: 'admin1234'
+  },
+    {
+    role: 'teaching',
+    mail: 'teachin@kindyStarts.com',
+    pass: 'teach1234'
+  },
+    {
+    role: 'family',
+    mail: 'family@kindyStarts.com',
+    pass: 'family1234'
+  },
 ]

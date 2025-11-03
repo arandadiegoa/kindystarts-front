@@ -44,6 +44,17 @@ export function StepsList() {
               presentar (fotocopias de DNI, ficha médica, calendario de
               vacunación, etc.).
             </p>
+
+            <h6 className="text-2xl font-bold text-center mb-6">
+              Confirmación de inscripción
+            </h6>
+            <p className="mb-4">
+              Una vez completados los pasos anteriores, la inscripción queda formalizada y
+              recibirás un número de matrícula para registrar al niño o la niña
+              en la web. ¡Y desde entonces podrán disfrutar juntos de todo el
+              contenido que preparamos con tanto cariño para nuestra comunidad
+              educativa! 🌈✨
+            </p>
             <h6 className="text-2xl font-bold text-center mb-6">
               Entrevista inicial
             </h6>
@@ -51,14 +62,6 @@ export function StepsList() {
               Realizamos una charla de conocimiento entre la familia y la
               docente, para compartir información importante sobre la adaptación
               y el desarrollo del niño/a.
-            </p>
-            <h6 className="text-2xl font-bold text-center mb-6">
-              Confirmación de inscripción
-            </h6>
-            <p className="mb-4">
-              Al completar los pasos anteriores, la inscripción queda
-              formalizada y ¡ya formás parte de nuestra comunidad educativa!
-              🌈✨.
             </p>
           </div>
         </section>

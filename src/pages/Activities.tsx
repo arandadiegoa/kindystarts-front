@@ -1,5 +1,5 @@
 import { ActivityCard } from "@/components/ActivityCard";
-import { activitiesData } from "@/data/activitiesData";
+import { activitiesData } from "@/data/serviceData";
 
 export function Activities() {
 
