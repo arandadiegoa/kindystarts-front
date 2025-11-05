@@ -1,7 +1,17 @@
+import { CardLinks } from "@/components/CardLinks";
+import { linksFamilyData } from "@/data/serviceData";
+import { useAuth } from "@/hook/useAuth";
+
 export function HomeFamily() {
+
+  const {user} = useAuth()
+  const subtitle = `¡Bienvenido/a, ${user?.name}! a nuestro rincón digital.`
+
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <h1>Bienvenido/a familia </h1>
-    </div>
+    <CardLinks
+    title="Rincón Familiar"
+    subtitle={subtitle}
+    links={linksFamilyData}
+    />
   );
 }

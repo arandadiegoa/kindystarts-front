@@ -3,7 +3,8 @@ import { Navigate, Outlet } from "react-router-dom";
 
 export function ProtectedRoute({ validRoles}: {validRoles: string[]}) {
 
-  const { role } = useAuth()
+  const { user } = useAuth()
+  const role = user?.role
 
   if(!role) {
     return <Navigate to="/" replace />

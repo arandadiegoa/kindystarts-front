@@ -56,7 +56,12 @@ export function Login() {
     );
 
     if (foundUser) {
-      login(foundUser.role);
+      const userToLogin = {
+        name: foundUser.name,
+        role: foundUser.role
+      }
+
+      login(userToLogin);
 
       switch (foundUser.role) {
         case "admin":

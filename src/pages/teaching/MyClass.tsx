@@ -1,7 +1,15 @@
+import { CardLinks } from "@/components/CardLinks";
+import { linksTeachData } from "@/data/serviceData";
+import { useAuth } from "@/hook/useAuth";
+
 export function MyClass() {
+  const {user} = useAuth()
+  const subtitle = `¡Bienvenida, ${user?.name}! a tu espacio de trabajo digital.`
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <h1>Bienvenida Docente</h1>
-    </div>
+   <CardLinks
+   title="Mi Aula"
+   subtitle={subtitle}
+   links={linksTeachData}
+   />
   );
 }

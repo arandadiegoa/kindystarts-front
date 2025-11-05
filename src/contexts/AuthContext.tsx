@@ -1,8 +1,13 @@
 import { createContext} from "react"
 
+export interface AuthUser {
+  name: string
+  role: string
+}
+
 interface AuthContextType {
-  role: string | null,
-  login: (role:string) => void
+  user: AuthUser | null
+  login: (user: AuthUser) => void
   logout: () => void
 }
 

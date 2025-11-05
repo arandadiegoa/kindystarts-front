@@ -10,7 +10,8 @@ import { Menu } from "lucide-react";
 import { useAuth } from "@/hook/useAuth";
 
 export function Navbar() {
-  const { role, logout } = useAuth();
+  const { user, logout } = useAuth();
+  const role = user?.role
 
   const publicLinks = [
     { to: "/", label: "Inicio" },

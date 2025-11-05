@@ -1,19 +1,19 @@
 import { useState, type ReactNode } from "react"
-import { AuthContext } from "./AuthContext"
+import { AuthContext, type AuthUser } from "./AuthContext"
 
 export function AuthProvider({ children }:{ children: ReactNode }) {
-  const [role, setRole] = useState<string | null>(null)
+  const [user, setUser] = useState<AuthUser | null>(null)
 
-  const login = (useRole:string) => {
-    setRole(useRole)
+  const login = (useData:AuthUser) => {
+    setUser(useData)
   }
 
   const logout = () => {
-    setRole(null)
+    setUser(null)
   }
 
   return (
-    <AuthContext.Provider value={{ role, login, logout}}>
+    <AuthContext.Provider value={{ user, login, logout}}>
       {children}
     </AuthContext.Provider>
   )
