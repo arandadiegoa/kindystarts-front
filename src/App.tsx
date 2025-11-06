@@ -19,6 +19,9 @@ import { Users } from "./pages/adm/Users";
 import { FamilyDocs } from "./pages/family/FamilyDocs";
 import { FamilyNews } from "./pages/family/FamilyNews";
 import { FamilyPhotos } from "./pages/family/FamilyPhotos";
+import { ChildrenList } from "./pages/teaching/ChildrenList";
+import { PhotosClass } from "./pages/teaching/PhotosClass";
+import { NewsClass } from "./pages/teaching/NewsClass";
 
 function App() {
 
@@ -49,6 +52,9 @@ function App() {
 
         <Route element={<ProtectedRoute validRoles={['teaching']} />}>
             <Route path="/teaching/mi-sala" element={<MyClass />} />
+            <Route path="/teaching/listado" element={<ChildrenList />} />
+            <Route path="/teaching/fotos" element={<PhotosClass />} />
+            <Route path="/teaching/novedades" element={<NewsClass />} />
         </Route>
 
         <Route element={<ProtectedRoute validRoles={['family']} />}>

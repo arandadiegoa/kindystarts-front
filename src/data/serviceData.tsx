@@ -142,9 +142,9 @@ export const linksAdmData = [
 ]
 
 export const linksTeachData = [
-  {title: 'Alumnos', description: 'Información sobre mis niños/as', link:'/students'},
-  {title: 'Novedades', description: 'Se realiza una descripcion de lo aprendido', link:'/news'},
-  {title: 'Fotos', description: 'Al finalizar el dia, se sube foto con la propuestas realizadas', link:'/photos'},
+  {title: 'Alumnos', description: 'Información sobre mis niños/as', link:'/teaching/listado'},
+  {title: 'Novedades', description: 'Se realiza una descripcion de lo aprendido', link:'/teaching/novedades'},
+  {title: 'Fotos', description: 'Al finalizar el dia, se sube foto con la propuestas realizadas', link:'/teaching/fotos'},
 ]
 
 export const linksFamilyData = [

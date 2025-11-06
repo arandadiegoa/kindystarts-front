@@ -35,7 +35,7 @@ export function Users() {
         <CardHeader>
           <CardTitle>Lista de Usuarios</CardTitle>
           <CardDescription>
-            Aquí puedes editar, eliminar docentes y familias
+            Aquí puedes agregar, editar y eliminar usuarios.
           </CardDescription>
         </CardHeader>
         <CardContent>

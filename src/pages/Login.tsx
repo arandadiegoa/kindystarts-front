@@ -68,10 +68,10 @@ export function Login() {
           navigate("/adm/dashboard");
           break;
         case "teaching":
-          navigate("/teaching/myclass");
+          navigate("/teaching/mi-sala");
           break;
         case "family":
-          navigate("/family/homefamily");
+          navigate("/family/mi-portal");
           break;
         default:
           navigate("/");
