@@ -9,6 +9,9 @@ import z from "zod";
 
 //Schema
 const formSchema = z.object({
+  nombre: z.string()
+    .min(6, {message: "Debe tener al menos 4 caracteres"
+  }),
   email: z.email({
     message: "Por favor, ingresa un email válido",
   }),
@@ -27,6 +30,7 @@ export function Contact(){
     const form = useForm({
       resolver: zodResolver(formSchema),
       defaultValues: {
+        nombre: "",
         email: "",
         telephone: "",
         descripcion: "",
@@ -51,6 +55,23 @@ export function Contact(){
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <CardContent className="grid gap-4">
+              <FormField
+                control={form.control}
+                name="nombre"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nombre y Apellido</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="juan perez"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="email"
