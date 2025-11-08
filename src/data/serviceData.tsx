@@ -16,6 +16,13 @@ export const carouselSlides = [
   },
 ];
 
+export const familyPhotosCarousel = [
+  {imgSrc: "/img/galery/Image.jpeg"},
+  {imgSrc: "/img/galery/Image1.jpeg"},
+  {imgSrc: "/img/galery/Image10.jpeg"}
+  
+]
+
 export const activitiesData = [
   {
     id: 1,
@@ -57,6 +64,24 @@ export const activitiesData = [
     ],
   },
 ];
+
+export const newsData = [
+  {
+    id: 1, 
+    title: "Novedades", 
+    description: "Hoy en el área de Lenguaje, estuvimos explorando los sonidos iniciales de las palabras, reconociendo qué letra escuchamos al comenzar a nombrar distintos objetos y nombres propios. A través de juegos, canciones y actividades con imágenes, los niños y niñas identificaron sonidos conocidos y se animaron a relacionarlos con las letras correspondientes.🧩"
+  },
+  {
+    id: 2, 
+    title: 'Novedades', 
+    description: 'Durante esta semana les estaremos compartiendo actividades artísticas.😊',
+  },
+  {
+    id: 3, 
+    title: 'Novedades', 
+    description: 'El día 10-05-25, realizaremos una jornada de pintura al aire libre donde los niños expresarán su creatividad en grupo.🎨',
+  }
+] 
 
 export const pillarsData = [
   {

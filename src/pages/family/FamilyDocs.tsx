@@ -1,3 +1,4 @@
+import { GoBackButton } from "@/components/GoBackButton"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form"
@@ -55,7 +56,11 @@ export function FamilyDocs() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <>
+    <div className="flex flex-col">
+    <GoBackButton />
+    </div>
+    <div className="flex items-center justify-center p-6 min-h-fit lg:min-h-screen">
       <Card className="w-full max-w-lg">
       <CardHeader>
         <CardTitle>Subida de Documentación</CardTitle>
@@ -113,5 +118,6 @@ export function FamilyDocs() {
       </CardContent>
       </Card>  
     </div>
+    </>
   )
 }
