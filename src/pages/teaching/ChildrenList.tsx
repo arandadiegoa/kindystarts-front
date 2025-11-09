@@ -29,7 +29,7 @@ export function ChildrenList() {
         <CardHeader>
           <CardTitle className="text-xl md:text-3xl">“Los peques de la Sala 🌼”</CardTitle>
           <CardDescription>
-            Aquí puedes ver la Información importante de cada niño/a
+            En este espacio podés consultar la información importante de cada niño o niña que forma parte de la sala.
           </CardDescription>
         </CardHeader>
         <CardContent>

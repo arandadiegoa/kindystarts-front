@@ -38,14 +38,16 @@ export function Messages() {
     );
   };
 
-
-
   return (
     <div className="flex flex-col gap-6 h-full m-3">
-      
-    <GoBackButton />
-
-      <h1 className="text-xl md:text-3xl font-bold">Mensajes Recibidos</h1>
+      <GoBackButton />
+      <CardHeader>
+        <CardTitle>Mensajes Recibidos</CardTitle>
+        <CardDescription>
+          En esta sección podés visualizar los mensajes recibidos a través del
+          formulario de contacto.
+        </CardDescription>
+      </CardHeader>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-full ">
         {/*Lista de Mensajes*/}
         <Card className="md:col-span-1 h-full">
@@ -87,7 +89,9 @@ export function Messages() {
             <Card className="h-full">
               <CardHeader className="flex flex-row items-center justify-between border-b">
                 <div>
-                  <CardTitle className="text-sm md:text-1xl">{selectedMessage.nombre}</CardTitle>
+                  <CardTitle className="text-sm md:text-1xl">
+                    {selectedMessage.nombre}
+                  </CardTitle>
                   <CardDescription>
                     {selectedMessage.email} | {selectedMessage.telefono}
                   </CardDescription>

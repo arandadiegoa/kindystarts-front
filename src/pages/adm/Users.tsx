@@ -26,7 +26,13 @@ export function Users() {
       <GoBackButton />
 
       <div className="flex items-center justify-between">
-        <h1 className="text-xl md:text-3xl font-bold">Gestión de Usuarios</h1>
+         <CardHeader>
+          <CardTitle>Administración de Usuarios</CardTitle>
+          <CardDescription>
+            Gestioná la información de los usuarios del sistema: creación de
+            cuentas, actualización de datos y asignación de roles.
+          </CardDescription>
+        </CardHeader>
         <Button size="sm" asChild>
           <Link to="#"> {/*TO-DO /admin/users/new */}
             Agregar

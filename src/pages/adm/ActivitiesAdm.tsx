@@ -1,6 +1,7 @@
 import { ActivityCard } from "@/components/ActivityCard";
 import { GoBackButton } from "@/components/GoBackButton";
 import { Button } from "@/components/ui/button";
+import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { activitiesData } from "@/data/serviceData";
 import { Edit, PlusCircle, Trash } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -11,7 +12,13 @@ export function ActivitiesAdm() {
       <GoBackButton />
 
       <div className="flex items-center justify-between">
-        <h1 className="text-xl md:text-3xl font-bold">Gestión de Actividades</h1>
+        <CardHeader>
+          <CardTitle>Gestión de Actividades</CardTitle>
+          <CardDescription>
+            En este espacio podés crear, editar o eliminar actividades de la
+            sala, y mantener actualizado el registro de propuestas realizadas.
+          </CardDescription>
+        </CardHeader>
         <Button asChild>
           <Link to="#">
             <PlusCircle className="mr-2 h-4 w-4" />

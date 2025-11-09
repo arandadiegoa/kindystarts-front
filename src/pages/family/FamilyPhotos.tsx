@@ -1,12 +1,19 @@
 import { GoBackButton } from "@/components/GoBackButton";
+import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { familyPhotosCarousel } from "@/data/serviceData";
 
 export function FamilyPhotos() {
   return (
     <div className="flex flex-col gap-6 m-4">
       <GoBackButton />
-      <h1 className="text-xl md:text-3xl font-bold">Fotos del día</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+      <CardHeader>
+        <CardTitle>Nuestros momentos del día 🌞</CardTitle>
+        <CardDescription>
+          Te invitamos a revivir con nosotros los instantes más especiales de la
+          sala, juegos, descubrimientos y mucha alegría.
+        </CardDescription>
+      </CardHeader>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mb-5">
         {familyPhotosCarousel.map((src, i) => (
           <img
             key={i}

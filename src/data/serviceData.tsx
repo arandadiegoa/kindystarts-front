@@ -204,15 +204,15 @@ export const linksAdmData = [
 ]
 
 export const linksTeachData = [
-  {title: 'Alumnos', description: 'Información sobre mis niños/as', link:'/teaching/listado'},
-  {title: 'Novedades', description: 'Se realiza una descripcion de lo aprendido', link:'/teaching/novedades'},
-  {title: 'Fotos', description: 'Al finalizar el dia, se sube foto con la propuestas realizadas', link:'/teaching/fotos'},
+  {title: 'Alumnos', description: '“Los peques de la Sala 🌼”', link:'/teaching/listado'},
+  {title: 'Novedades', description: 'Mis novedades', link:'/teaching/novedades'},
+  {title: 'Fotos', description: 'Momentos que nos hacen sonreír', link:'/teaching/fotos'},
 ]
 
 export const linksFamilyData = [
-  {title: 'Documentación', description: 'Adjuntar documentación requerida', link:'/family/documentos'},
-  {title: 'Novedades', description: 'Visualizar novedades', link:'/family/novedades'},
-  {title: 'Fotos', description: 'Visualizar foto del dia', link:'/family/fotos-diarias'},
+  {title: 'Documentación', description: 'Subida de Documentación', link:'/family/documentos'},
+  {title: 'Novedades', description: 'Lo nuevo en nuestra sala 🌈', link:'/family/novedades'},
+  {title: 'Fotos', description: 'Nuestros momentos del día 🌞', link:'/family/fotos-diarias'},
 ]
 
 export const messagesData = [
