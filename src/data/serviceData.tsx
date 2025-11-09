@@ -27,15 +27,15 @@ export const listHallGreen = [
     id: 1,
     name: "Lucía",
     lastName: "Romagnoli",
+    date: "10-03-24",
     telephone: "3511234546",
-    age: "2 años",
-     contact: "Papá Atilio"
+    contact: "Papá Atilio"
   },
    {
     id: 2,
     name: "Betina",
     lastName: 'Acosta',
-    age: "2 años",
+    date: "01/02/24",
     telephone: "3511226541",
     contact: "Mamá Federica"
   },
@@ -43,7 +43,7 @@ export const listHallGreen = [
     id: 3,
     name: "Mariana",
     lastName: 'Gorosito',
-    age: "2 años",
+    date: "30-07-24",
     telephone: "3511067884",
     contact: "Mamá Nestora"
   },
@@ -51,7 +51,7 @@ export const listHallGreen = [
     id: 4,
     name: "Mercedes",
     lastName: 'Torrico',
-    age: "2 años",
+    date: "20-05-24",
     telephone: "35156456465",
     contact: "Papá Sebastian"
   }

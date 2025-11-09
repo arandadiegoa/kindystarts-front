@@ -36,21 +36,21 @@ export function ChildrenList() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>ID</TableHead>
-                <TableHead>Nombre</TableHead>
-                <TableHead>Apellido</TableHead>
-                <TableHead>Edad</TableHead>
-                 <TableHead>Teléfono</TableHead>
-                  <TableHead>Contacto</TableHead>
+                <TableHead className="text-center">ID</TableHead>
+                <TableHead className="text-center">Nombre</TableHead>
+                <TableHead className="text-center">Apellido</TableHead>
+                <TableHead className="text-center">Fecha de Nacimiento</TableHead>
+                <TableHead className="text-center">Teléfono</TableHead>
+                <TableHead className="text-center">Contacto</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {listHallGreen.map((hall) => (
-                <TableRow key={hall.id}>
+                <TableRow className="text-center" key={hall.id}>
                   <TableCell className="font-medium">{hall.id}</TableCell>
                   <TableCell className="font-medium">{hall.name}</TableCell>
                    <TableCell className="font-medium">{hall.lastName}</TableCell>
-                    <TableCell className="font-medium">{hall.age}</TableCell>
+                    <TableCell className="font-medium">{hall.date}</TableCell>
                     <TableCell className="font-medium">{hall.telephone}</TableCell>
                   <TableCell className="font-medium">{hall.contact}</TableCell>
                 </TableRow>
