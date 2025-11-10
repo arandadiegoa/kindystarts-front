@@ -8,14 +8,17 @@ Este proyecto fue construido con un enfoque "mobile-first", utilizando un stack 
 Users de prueba
 
 Admin
+
 mail: 'admin@kindyStarts.com'
 pass: 'admin1234'
 
 Docente
+
 mail: 'teachin@kindyStarts.com'
 pass: 'teach1234'
 
 Family
+
 mail: 'family@kindyStarts.com'
 pass: 'family1234'
 
