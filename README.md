@@ -10,8 +10,9 @@ Capturas de pantalla (Screenshots)
 Home
 ![Captura Home](./public/img/screenshots/image5.png)
 
+
 Login
-[![Captura Login](./public/img/screenshots/image.png)]
+![Captura Login](./public/img/screenshots/image.png)
 
 
 Registrate
@@ -19,11 +20,11 @@ Registrate
 
 
 Panel Admin
-[![Captura panel Adm](./public/img/screenshots/image-1.png)]
+![Captura panel Adm](./public/img/screenshots/image-1.png)
 
 
 Panel Docente
-[![Captura panel docente]((./public/img/screenshots/image3.png))]
+![Captura panel docente](./public/img/screenshots/image3.png)
 
 
 Contacto
@@ -31,12 +32,14 @@ Contacto
 
 
 Galería de Actividades
-[![Captura galeria actividades](./public/img/screenshots/image-2.png)]
+![Captura galeria actividades](./public/img/screenshots/image-2.png)
 
 
+Preguntas frecuentes
 ![Captura Preguntas frecuentes](./public/img/screenshots/image8.png)
 
 
+¿Cómo inscribirse?
 ![Captura ¿Cómo inscribirse?](./public/img/screenshots/image7.png)
 ---
 
