@@ -5,7 +5,21 @@ KindyStarts es una aplicación web (SPA) diseñada para centralizar la comunicac
 Este proyecto fue construido con un enfoque "mobile-first", utilizando un stack moderno de React y herramientas de UI de alta calidad.
 
 ---
+Users de prueba
 
+Admin
+mail: 'admin@kindyStarts.com'
+pass: 'admin1234'
+
+Docente
+mail: 'teachin@kindyStarts.com'
+pass: 'teach1234'
+
+Family
+mail: 'family@kindyStarts.com'
+pass: 'family1234'
+
+---
 Capturas de pantalla (Screenshots)
 
 Home
