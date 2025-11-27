@@ -1,4 +1,5 @@
 import { GoBackButton } from "@/components/GoBackButton";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,11 +17,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { users } from "@/data/authData";
-import { Edit, PlusCircle, Trash } from "lucide-react";
+import { useUsers } from "@/hook/useUsers";
+import { Edit, Loader2, PlusCircle, Trash } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function Users() {
+
+  const { users, isLoading, error } = useUsers()
   
   return (
     <div className="flex flex-col gap-6 m-3">
@@ -59,13 +62,21 @@ export function Users() {
                 <TableHead>Sala</TableHead>
               </TableRow>
             </TableHeader>
+             {isLoading ? (
+                  <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Validando...
+                  </>
+                ): (
+                  ""
+                )}
             <TableBody>
               {users.map((user) => (
                 <TableRow key={user.id}>
                   <TableCell className="font-medium">{user.id}</TableCell>
                   <TableCell className="font-medium">{user.name}</TableCell>
                   <TableCell className="hidden md:table-cell">
-                    {user.mail}
+                    {user.email}
                   </TableCell>
                   <TableCell>
                     <Badge
@@ -94,6 +105,14 @@ export function Users() {
                 </TableRow>
               ))}
             </TableBody>
+              {error && (
+                <Alert variant="destructive">
+                  <AlertTitle className="text-center" />
+                  <AlertDescription>
+                    {error}
+                  </AlertDescription>
+                </Alert>
+              )}
           </Table>
         </CardContent>
       </Card>
