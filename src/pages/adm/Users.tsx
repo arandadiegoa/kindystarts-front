@@ -24,6 +24,8 @@ import { Link } from "react-router-dom";
 export function Users() {
 
   const { users, isLoading, error } = useUsers()
+
+  console.log(users)
   
   return (
     <div className="flex flex-col gap-6 m-3">
@@ -89,7 +91,7 @@ export function Users() {
                         : "Familia"}
                     </Badge>
                   </TableCell>
-                   <TableCell className="font-medium">{user.sala}</TableCell>
+                   <TableCell className="font-medium">{user.hall}</TableCell>
                   <TableCell className="text-right">
                     {user.role !== "admin" && (
                       <>

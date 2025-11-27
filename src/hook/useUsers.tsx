@@ -5,7 +5,7 @@ export interface User {
   name: string
   email: string
   role: 'admin' | 'teaching' | 'family'
-  sala: 'azul' | 'roja' | 'verde'
+  hall: 'azul' | 'roja' | 'naranja' | 'celeste'
 }
 
 export function useUsers(){
