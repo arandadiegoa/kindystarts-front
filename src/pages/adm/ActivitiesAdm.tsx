@@ -3,17 +3,19 @@ import { GoBackButton } from "@/components/GoBackButton";
 import { Button } from "@/components/ui/button";
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertCircle, Edit, Loader2, PlusCircle, Trash } from "lucide-react";
-import { Link } from "react-router-dom";
 import { ActivityEditModal } from "@/components/ActivityEditModal";
 
 import { useActivities, type Activity } from "@/hook/useActivities";
 import { useState } from "react";
+import { ActivityCreateModal } from "@/components/ActivityCreateModal";
 
 export function ActivitiesAdm() {
 
-  const {activities, isLoading, error, deleteActivity, updateActivity} = useActivities()
+  const {activities, isLoading, error, deleteActivity, updateActivity, createActivity} = useActivities()
 
   const [editingActivity, setEditingActivity] = useState<Activity | null>(null)
+
+  const [isCreateOpen, setIsCreateOpen] = useState(false)
 
   if(isLoading) {
     return (
@@ -46,11 +48,9 @@ export function ActivitiesAdm() {
             sala, y mantener actualizado el registro de propuestas realizadas.
           </CardDescription>
         </CardHeader>
-        <Button asChild>
-          <Link to="/admin/activities/new">
+        <Button onClick={() => setIsCreateOpen(true)}>
             <PlusCircle className="mr-2 h-4 w-4" />
             Crear
-          </Link>
         </Button>
       </div>
 
@@ -79,7 +79,7 @@ export function ActivitiesAdm() {
                 variant="ghost"
                 size="icon"
                 className="text-destructive hover:text-destructive"
-                onClick={() => deleteActivity}
+                onClick={() => deleteActivity(activity.id)}
               >
                 <Trash className="h-4 w-4" />
               </Button>
@@ -93,6 +93,12 @@ export function ActivitiesAdm() {
         activity={editingActivity}
         onClose={() => setEditingActivity(null)}
         onSave={updateActivity}
+        />
+
+        <ActivityCreateModal 
+        isOpen={isCreateOpen}
+        onClose={() => setIsCreateOpen(false)}
+        onCreate={createActivity}
         />
 
     </div>

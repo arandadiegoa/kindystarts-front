@@ -12,6 +12,37 @@ export function useActivities() {
   const [isLoading, setIsloading] = useState(true);
   const [error, setError] = useState<string | null>(null)
 
+  //Crear actividad
+  const createActivity = async(newActivity: Omit<Activity, 'id'>) => {
+    try {
+      const res = await fetch('http://localhost:3000/api/activities', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json' },
+        body: JSON.stringify(newActivity),
+      })
+
+      if (!res.ok) throw new Error('Error al crear')
+
+        const responseBackend = await res.json() //id + message
+
+        //Creamos el objeto
+        const activityToDisplay = {
+          ...newActivity,
+          id: responseBackend.id
+        }
+        
+        //Guardamos en el estado ese objeto completo
+        setActivities(prev => [...prev, activityToDisplay])
+
+        return true
+
+    } catch (error) {
+      console.log('Error', error)
+      alert('Error al crear actividades')
+      return false
+    }
+  }
+
   //Obtener todas las actividades
   const fecthActivities = useCallback(async () => {
     setIsloading(true)
@@ -30,6 +61,14 @@ export function useActivities() {
 
   //Borrar actividad
   const deleteActivity = async (id: string) => {
+
+    console.log("🗑️ Intentando borrar ID:", id);
+    
+    if(!id){
+      alert('Error el ID de la actividad no existe')
+      return
+    }
+    
     if(!confirm("¿Seguro que desea eliminar la actividad?")) return
 
     try {
@@ -75,6 +114,7 @@ export function useActivities() {
     error,
     refetch: fecthActivities,
     deleteActivity,
-    updateActivity
+    updateActivity,
+    createActivity
   }
 }
