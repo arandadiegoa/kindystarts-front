@@ -17,4 +17,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // 2. Exportamos la instancia de Storage ya inicializada
-export const storage = getStorage(app);
+export const storage = getStorage(app, "gs://kindystarts.firebasestorage.app");

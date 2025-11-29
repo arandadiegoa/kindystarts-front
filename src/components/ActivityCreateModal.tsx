@@ -39,24 +39,33 @@ export function ActivityCreateModal({
   });
 
   //Estado local para manejar el archivo
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
   //Manejo de archivo local
   const handleFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-      //Url temporal para el preview
-      const objectUrl = URL.createObjectURL(file);
-      setPreviewUrl(objectUrl);
+    if(e.target.files && e.target.files.length > 0) {
+      const newFiles = Array.from(e.target.files)
+
+      //Validación max 4 fotos
+      const totalPhotos = selectedFiles.length + newFiles.length
+      if(totalPhotos > 4) {
+        alert('Sólo puedes subir un maximo de 4 fotos por actividad')
+        e.target.value = ""
+        return
+      }
+
+      setSelectedFiles((prev) => [...prev, ...newFiles])
+
+      const newPrevius = newFiles.map((file) => URL.createObjectURL(file))
+      setPreviewUrls((prev) => [...prev, ...newPrevius])
     }
   };
 
-  //Limpiar la foto seleccionada
-  const handleRemovePhoto = () => {
-    setSelectedFile(null);
-    setPreviewUrl(null);
+  //Quitar foto de la lista
+  const handleRemovePhoto = (indexToRemove: number) => {
+    setSelectedFiles((prev) => prev.filter((_, i) => i !== indexToRemove));
+    setPreviewUrls((prev) => prev.filter((_, i) => i !== indexToRemove));
   };
 
   //Subida a Firebase Storage
@@ -82,19 +91,17 @@ export function ActivityCreateModal({
     setUploadProgress("Subiendo imagen...");
 
     try {
-      let finalPhotos = [...formData.photos];
+      const uploadedUrl = await Promise.all(
+        selectedFiles.map((file) => uploadImageStorage(file))
+      )
+    
 
-      if (selectedFile) {
-        const url = await uploadImageStorage(selectedFile);
-        finalPhotos = [url];
-      }
-
-      setUploadProgress("Guardando datos...");
+      setUploadProgress("Guardando actividad...");
 
       //Guardar la actividad en la BD
       const success = await onCreate({
         ...formData,
-        photos: finalPhotos,
+        photos: uploadedUrl, // Pasamos el array de URLs de Firebase
       });
 
       if (success) {
@@ -105,8 +112,8 @@ export function ActivityCreateModal({
           date: new Date().toISOString(),
           photos: [],
         });
-        setSelectedFile(null);
-        setPreviewUrl(null);
+        setSelectedFiles([]);
+        setPreviewUrls([]);
         onClose();
       }
     } catch (error) {
@@ -120,12 +127,12 @@ export function ActivityCreateModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[500px] max-h-[90vh] lex flex-col p-0 gap-0">
         <DialogHeader>
           <DialogTitle>Nueva Actividad</DialogTitle>
         </DialogHeader>
 
-        <div className="grid gap-4 py-4">
+        <div className="flex-1 overflow-y-auto p-6 pt-2 grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="title">Titulo</Label>
             <Input
@@ -152,45 +159,56 @@ export function ActivityCreateModal({
 
           {/*Imagen*/}
           <div className="grid gap-2">
-            <Label>Fotografia</Label>
+            <Label className={selectedFiles.length >=4 ? "text-destructive": ""}>
+              Fotografia ({selectedFiles.length}/4)
+              </Label>
 
-            {!previewUrl ? (
-              // DROPZONE / INPUT
+            {selectedFiles.length < 4 ? (
               <div className="flex items-center justify-center w-full">
-                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50 transition-colors border-muted-foreground/25">
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <ImageIcon className="w-8 h-8 mb-2 text-muted-foreground" />
-                    <p className="text-sm text-muted-foreground">
-                      <span className="font-semibold">Subir foto</span>
-                    </p>
-                    <p className="text-xs text-muted-foreground">JPG, PNG</p>
-                  </div>
-                  <Input
-                    id="dropzone-file"
-                    type="file"
-                    className="hidden"
+                <Label className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50 transition-colors border-muted-foreground/25">
+                <div className="flex flex-col items-center justify-center pt-2 pb-2">
+                <ImageIcon className="w-6 h-6 mb-1 text-muted-foreground" />
+                <p className="text-xs text-muted-foreground">
+                  <span className="font-semibold">Agregar fotos</span>(Clik aquí)
+                </p>
+                <p className="text-xs text-muted-foreground">JPG, PNG</p>
+                </div>
+                <Input
+                id="dropzone-file" 
+                    type="file" 
+                    multiple // <--- permite múltiples archivos
+                    className="hidden" 
                     accept="image/*"
                     onChange={handleFileSelect}
-                  />
-                </label>
-              </div>
-            ) : (
-              // PREVIEW
-              <div className="relative rounded-lg overflow-hidden border aspect-video group">
-                <img
-                  src={previewUrl}
-                  alt="Preview"
-                  className="w-full h-full object-cover"
                 />
-                {/* Botón para quitar la foto */}
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  className="absolute top-2 right-2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
-                  onClick={handleRemovePhoto}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
+                </Label>
+              </div>
+            ): (
+              <div className="p-3 text-center text-xs text-destructive border border-destructive/30 rounded-lg bg-destructive/5">
+                Has alcanzado el límite de 4 fotos.
+              </div>
+            )}
+
+           {previewUrls.length > 0 && (
+              <div className="grid grid-cols-3 gap-2 mt-2">
+                {previewUrls.map((url, index) => (
+                  <div key={index} className="relative rounded-md overflow-hidden aspect-square border group">
+                    <img 
+                      src={url} 
+                      alt={`Preview ${index}`} 
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Botón para eliminar foto individual */}
+                    <Button
+                      variant="destructive"
+                      size="icon"
+                      className="absolute top-1 right-1 h-6 w-6 opacity-80 hover:opacity-100 transition-opacity"
+                      onClick={() => handleRemovePhoto(index)}
+                    >
+                      <X className="h-3 w-3" />
+                    </Button>
+                  </div>
+                ))}
               </div>
             )}
           </div>
