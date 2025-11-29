@@ -11,9 +11,9 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
-import { Loader2, Save } from "lucide-react";
+import { ImageIcon, Loader2, Save, X } from "lucide-react";
 import { storage } from "@/firebase";
-import { getDownloadURL, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 interface ActivityEditModalProps {
   activity: Activity | null;
@@ -128,25 +128,25 @@ export function ActivityEditModal({
         onClose();
       }
     } catch (error) {
-      console.error(error)
-      alert('Error al guardar los cambios')
+      console.error(error);
+      alert("Error al guardar los cambios");
     } finally {
-      setIsSaving(false)
-      setUploadProgress("")
+      setIsSaving(false);
+      setUploadProgress("");
     }
   };
 
   //Calcular el final de fotos
-  const currentTotalPhotos = existingPhotos.length + newFiles.length
+  const currentTotalPhotos = existingPhotos.length + newFiles.length;
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
+      <DialogContent className="sm:max-w-[500px] max-h-[90vh] flex flex-col p-0 gap-0">
+        <DialogHeader className="p-6 pb-3">
           <DialogTitle>Editar Actividad</DialogTitle>
         </DialogHeader>
 
-        <div className="grid gap-4 py-4">
+        <div className="flex-1 overflow-y-auto p-6 pt-2 grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="title">Título</Label>
             <Input
@@ -169,6 +169,84 @@ export function ActivityEditModal({
           </div>
 
           {/*SECCION FOTOS*/}
+          <div className="grid gap-2">
+            <Label
+              className={currentTotalPhotos >= 4 ? "text-destructive" : ""}
+            >
+              Fotografías ({currentTotalPhotos} /4)
+            </Label>
+
+            {currentTotalPhotos < 4 && (
+              <div className="flex items-center justify-center w-full mb-2">
+                <label className="flex flex-col items-center justify-center w-full h-16 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50 transition-colors border-muted-foreground/25">
+                  <div className="flex flex-row items-center justify-center gap-2">
+                    <ImageIcon className="w-5 h-5 text-muted-foreground" />
+                    <p className="text-xs text-muted-foreground font-semibold">
+                      Agregar más fotos
+                    </p>
+                  </div>
+                  <Input
+                    type="file"
+                    multiple
+                    className="hidden"
+                    accept="image/*"
+                    onChange={handleFileSelect}
+                  />
+                </label>
+              </div>
+            )}
+
+            {/*Grilla Mixta */}
+            <div className="grid grid-cols-3 gap-2">
+              {existingPhotos.map((url, i) => (
+                <div
+                  key={`old-${i}`}
+                  className="relative rounded-md overflow-hidden aspect-square border group"
+                >
+                  <img
+                    src={url}
+                    alt="Guardada"
+                    className="w-full h-full object-cover"
+                  />
+                  <span className="absolute bottom-0 left-0 bg-black/50 text-white text-[10px] px-1 w-full text-center">
+                    Guardada
+                  </span>
+                  <Button
+                    variant="destructive"
+                    size="icon"
+                    className="absolute top-1 right-1 h-5 w-5 opacity-80 hover:opacity-100"
+                    onClick={() => removeExistingPhotos(url)}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                </div>
+              ))}
+
+              {newPreviews.map((url, i) => (
+                <div
+                  key={`new${i}`}
+                  className="relative rounded-md overflow-hidden aspect-square border border-blue-400 group"
+                >
+                  <img
+                    src={url}
+                    alt="Nueva"
+                    className="w-full h-full object-cover"
+                  />
+                  <span className="absolute bottom-0 left-0 bg-blue-600/80 text-white text-[10px] px-1 w-full text-center">
+                    Nueva
+                  </span>
+                  <Button
+                    variant="destructive"
+                    size="icon"
+                    className="absolute top-1 right-1 h-5 w-5 opacity-80 hover:opacity-100"
+                    onClick={() => removeNewFile(i)}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         <DialogFooter>
@@ -177,11 +255,17 @@ export function ActivityEditModal({
           </Button>
           <Button onClick={handleSaveClick} disabled={isSaving}>
             {isSaving ? (
+              <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              {uploadProgress || "Guardando..."}
+              </>
             ) : (
+              <>
               <Save className="mr-2 h-4 w-4" />
+              Guardar
+              </>
             )}
-            Guardar
+            
           </Button>
         </DialogFooter>
       </DialogContent>

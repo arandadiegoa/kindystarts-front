@@ -85,7 +85,7 @@ export function useActivities() {
   const updateActivity = async (id: string, updates: Partial<Activity>) => {
     try {
       await fetch(`http://localhost:3000/api/activities/${id}`, {
-        method: 'PATH',
+        method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updates)
       })

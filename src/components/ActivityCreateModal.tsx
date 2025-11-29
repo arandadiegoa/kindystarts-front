@@ -128,7 +128,7 @@ export function ActivityCreateModal({
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-[500px] max-h-[90vh] lex flex-col p-0 gap-0">
-        <DialogHeader>
+        <DialogHeader className="p-6 pb-2">
           <DialogTitle>Nueva Actividad</DialogTitle>
         </DialogHeader>
 
