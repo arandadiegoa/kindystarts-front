@@ -2,25 +2,25 @@ KindyStarts - Aplicación de Gestión de Jardín Maternal✨
 
 KindyStarts es una aplicación web (SPA) diseñada para centralizar la comunicación y gestión de un jardín maternal, conectando a Administradores, Docentes y Familias en una sola plataforma.
 
-Este proyecto fue construido con un enfoque "mobile-first", utilizando un stack moderno de React y herramientas de UI de alta calidad.
+Este proyecto fue construido con una arquitectura moderna, escalable y Serverless.
 
 ---
 Users de prueba
 
 Admin
 
-mail: admin@kindyStarts.com
+mail: luciaLopez@kindyStarts.com
 pass: admin1234
 
 Docente
 
-mail: teachin@kindyStarts.com
-pass: teach1234
+mail: betinaAcosta@kindyStarts.com
+pass: betina1234
 
 Family
 
-mail: family@kindyStarts.com
-pass: family1234
+mail: diegoa@kindyStarts.com
+pass: diegoa1234
 
 ---
 Capturas de pantalla (Screenshots)
@@ -64,64 +64,83 @@ Preguntas frecuentes
 ![Captura ¿Cómo inscribirse?](./public/img/screenshots/image7.png)
 
 ---
-🚀 Tecnologías Utilizadas
-Este proyecto fue construido utilizando:
+🛠 Tecnologías Utilizadas
+Este proyecto fue construido utilizando un stack tecnológico de última generación:
 
-Framework: React 18 (con Vite).
+Core: React 18 (con Vite).
 
-Lenguaje: TypeScript.
+Lenguaje: TypeScript - Para un código robusto y tipado.
 
-Componentes de UI: shadcn/ui - Una colección de componentes reutilizables construidos sobre Radix UI.
+Backend as a Service (BaaS): Firebase (Google).
 
-Estilos: Tailwind CSS - Para un diseño rápido y responsivo.
+🔐 Authentication: Gestión de identidades y login seguro.
 
-Routing: React Router v6 - Para la navegación y la creación de rutas protegidas.
+🔥 Firestore Database: Base de datos NoSQL en tiempo real para usuarios, actividades y mensajes.
 
-Manejo de Formularios: React Hook Form - Para formularios de alto rendimiento.
+☁️ Storage: Almacenamiento en la nube para fotografías y archivos.
 
-Validación de Schemas: Zod - Para validar formularios (Login, Registro, Contacto, Subida de Archivos).
+UI/UX:
 
-Manejo de Estado (Global): React Context API - Para gestionar la autenticación y el estado del usuario en toda la app.
+shadcn/ui - Componentes reutilizables de alta calidad (basados en Radix UI).
 
-Carruseles: Embla Carousel - Utilizado en el Home y en las galerías (con plugins de Autoplay y Fade).
+Tailwind CSS - Estilizado rápido y responsivo (Mobile-First).
 
-Iconos: Lucide React.
+Lucide React - Iconografía moderna.
+
+Embla Carousel - Carruseles táctiles con plugins de Autoplay y Fade.
+
+Gestión de Estado & Lógica:
+
+React Context API - Manejo global de sesión y autenticación.
+
+React Router v6 - Navegación y protección de rutas.
+
+React Hook Form + Zod - Manejo de formularios de alto rendimiento con validación de esquemas estricta.
 
 ---
 ✨ Características Principales
-Sistema de Autenticación y Roles
+🔐 Sistema de Autenticación y Roles (Serverless)
 
-Login por Roles: Valida usuarios contra un mock de datos (data/users.ts) y diferencia entre roles: admin, teaching (docente) y family.
+Login Directo con Firebase: Autenticación segura contra Google Identity Platform, eliminando la
 
-Persistencia de Sesión: Utiliza localStorage y el AuthProvider para mantener al usuario logueado incluso después de refrescar la página.
+necesidad de un backend intermedio para el login.
 
-Logout Seguro: Maneja correctamente el logout y la navegación, evitando "páginas fantasma" del caché del navegador.
+Roles Dinámicos: Gestión de permisos (admin, teaching, family) almacenados en Firestore. El frontend
 
-Rutas Protegidas (ProtectedRoute): Un componente "guardián" que restringe el acceso a las ruta (/admin/*, /family/*) basándose en el rol del usuario guardado en el AuthContext.
+consulta el rol del usuario tras la autenticación y redirige al portal correspondiente.
 
+Persistencia de Sesión: Mantiene al usuario logueado mediante onAuthStateChanged y Context API.
+
+Rutas Protegidas: Componente ProtectedRoute que actúa como "guardián", impidiendo el acceso no 
+
+autorizado a paneles administrativos o docentes mediante URL directa.
 ---
 Paneles de Control Dinámicos
 
-Layout Dinámico: La Navbar y el Footer cambian dinámicamente. 
+UX Adaptativa: La Navbar y el Footer mutan según el rol del usuario logueado.
 
-El Navbar muestra diferentes links según el rol, y el Footer se oculta para admin y teaching.
+Launchpads: Paneles de inicio visuales con tarjetas interactivas (efectos de elevación y sombra) para 
 
-Paneles de Tareas (Launchpads): En lugar de un dashboard tradicional, cada rol tiene un panel 
-de inicio (CardLinks) con tarjetas que enlazan a sus respectivas funciones.
-
-Efectos de UI Modernos: Las tarjetas de navegación incluyen efectos hover (levantamiento, 
-sombra y revelado de flecha) para una UX más moderna.
+acceso rápido a las funciones de cada rol.
 
 ---
 Módulos de Administración (Admin)
 
-Gestión de Usuarios: Página con una tabla para visualizar y gestionar usuarios.
+CRUD Completo de Actividades:
 
-Bandeja de Mensajes: Un diseño tipo "Inbox" de email para leer y gestionar los mensajes del
-formulario de contacto, con estado "Leído" / "Pendiente".
+Creación/Edición: Formularios modales validados con Zod.
 
-Gestión de Actividades: Un layout de tarjetas que permite al admin ver, editar y borrar 
-actividades. Incluye un modal con un carrusel para ver todas las fotos.
+Gestión de Imágenes: Integración con Firebase Storage para subida múltiple de fotos, previsualización en 
+
+tiempo real, validación de cantidad (máx. 5) y barra de progreso.
+
+Actualización Optimista: La interfaz se actualiza instantáneamente al crear o borrar, mejorando la 
+
+percepción de velocidad.
+
+Gestión de Usuarios: Visualización y administración de perfiles sincronizados con Firestore.
+
+Bandeja de Mensajes: Sistema tipo "Inbox" para gestionar consultas del formulario de contacto.
 
 ---
 Módulos de Docente y Familia
@@ -142,6 +161,36 @@ Layout Responsivo: Todo el sitio está construido con un enfoque "Mobile-First" 
 Header Fijo (Sticky): El Navbar se mantiene fijo en la parte superior durante el scroll.
 
 ---
+⚙️ Configuración del Entorno
 
+Para ejecutar este proyecto, necesitas configurar las variables de entorno de Firebase. Crea un archivo .
+
+env en la raíz del proyecto:
+
+Fragmento de código
+
+VITE_API_KEY=tu_api_key_de_firebase
+VITE_AUTH_DOMAIN=tu-proyecto.firebaseapp.com
+VITE_PROJECT_ID=tu-proyecto
+VITE_STORAGE_BUCKET=tu-proyecto.firebasestorage.app
+VITE_MESSAGING_SENDER_ID=tu_sender_id
+VITE_APP_ID=tu_app_id
+Nota: Asegúrate de habilitar Authentication (Email/Password), Firestore y Storage en tu consola de Firebase y configurar las reglas de CORS para el Storage si estás en desarrollo.
+
+---
+📦 Instalación y Uso
+
+Instalar dependencias:
+
+Bash
+
+npm install
+
+---
+Correr servidor de desarrollo:
+
+Bash
+
+npm run dev
 
 

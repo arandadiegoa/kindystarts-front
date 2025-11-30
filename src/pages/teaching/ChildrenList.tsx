@@ -23,7 +23,7 @@ export function ChildrenList() {
       <GoBackButton />
 
       <div className="flex items-center justify-between">
-        <h1 className="text-xl md:text-3xl font-bold bg-green-300">Sala Verde</h1>
+        <h1 className="text-xl md:text-3xl font-bold bg-blue-300">Sala Azul</h1>
       </div>
       <Card>
         <CardHeader>
