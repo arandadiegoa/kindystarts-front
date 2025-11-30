@@ -172,11 +172,17 @@ env en la raíz del proyecto:
 Fragmento de código
 
 VITE_API_KEY=tu_api_key_de_firebase
+
 VITE_AUTH_DOMAIN=tu-proyecto.firebaseapp.com
+
 VITE_PROJECT_ID=tu-proyecto
+
 VITE_STORAGE_BUCKET=tu-proyecto.firebasestorage.app
+
 VITE_MESSAGING_SENDER_ID=tu_sender_id
+
 VITE_APP_ID=tu_app_id
+
 Nota: Asegúrate de habilitar Authentication (Email/Password), Firestore y Storage en tu consola de Firebase y configurar las reglas de CORS para el Storage si estás en desarrollo.
 
 ---
