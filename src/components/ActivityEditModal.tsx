@@ -6,6 +6,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogFooter,
+  DialogDescription,
 } from "./ui/dialog";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
@@ -47,11 +48,11 @@ export function ActivityEditModal({
         title: activity.title,
         description: activity.description,
       });
-      setExistingPhotos(Array.isArray(activity.photos) ? activity.photos : []); //validar que sea un array
+      setExistingPhotos(Array.isArray(activity.photos) ?activity.photos : []); //validar que sea un array
       //Resetear lo nuevo
       setNewFiles([]);
       setNewPreviews([]);
-    }
+    } 
   }, [activity]);
 
   //Archivos nuevos
@@ -71,9 +72,13 @@ export function ActivityEditModal({
         return;
       }
 
+      //Guardar los archivos reales
+      setNewFiles((prev) => [...prev, ...selected]);
+
       //Generar Previews
       const urls = selected.map((file) => URL.createObjectURL(file));
       setNewPreviews((prev) => [...prev, ...urls]);
+
     }
   };
 
@@ -105,11 +110,13 @@ export function ActivityEditModal({
 
     try {
       let newPhotoUrls: string[] = [];
+
       if (newFiles.length > 0) {
         setUploadProgress(`Subiendo ${newFiles.length} fotos nuevas`);
         newPhotoUrls = await Promise.all(
           newFiles.map((file) => uploadImageToStorage(file))
-        );
+        )
+        console.log("URLS generadas", newPhotoUrls)
       }
 
       //Combinar las fotos anteriores + nuevas
@@ -125,6 +132,7 @@ export function ActivityEditModal({
       setIsSaving(false);
 
       if (success) {
+        setExistingPhotos([])
         onClose();
       }
     } catch (error) {
@@ -144,6 +152,9 @@ export function ActivityEditModal({
       <DialogContent className="sm:max-w-[500px] max-h-[90vh] flex flex-col p-0 gap-0">
         <DialogHeader className="p-6 pb-3">
           <DialogTitle>Editar Actividad</DialogTitle>
+          <DialogDescription>
+            Modifica los detalles de la actividad y gestiona las fotografías.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="flex-1 overflow-y-auto p-6 pt-2 grid gap-4">

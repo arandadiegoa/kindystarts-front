@@ -1,3 +1,4 @@
+import { auth } from "@/firebase"
 import { useCallback, useEffect, useState } from "react"
 
 export interface Activity {
@@ -15,15 +16,26 @@ export function useActivities() {
   //Crear actividad
   const createActivity = async(newActivity: Omit<Activity, 'id'>) => {
     try {
-      const res = await fetch('http://localhost:3000/api/activities', {
+
+      const user = auth.currentUser
+      console.log('_Usuario actual', user)
+
+      if(!user) throw new Error("No estás logueado")
+
+      const token = await user.getIdToken()
+      console.log("🎟️ Token generado:", token); // <--- ¿Es un string largo o undefined?
+
+      const response = await fetch('http://localhost:3000/api/activities', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json' },
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json' },
         body: JSON.stringify(newActivity),
       })
 
-      if (!res.ok) throw new Error('Error al crear')
+      if (!response.ok) throw new Error('Error del servidor o permiso denegado')
 
-        const responseBackend = await res.json() //id + message
+        const responseBackend = await response.json() //id + message
 
         //Creamos el objeto
         const activityToDisplay = {
@@ -36,9 +48,10 @@ export function useActivities() {
 
         return true
 
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error:any) {
       console.log('Error', error)
-      alert('Error al crear actividades')
+      alert('Error al crear actividades' + error.message)
       return false
     }
   }
@@ -72,31 +85,51 @@ export function useActivities() {
     if(!confirm("¿Seguro que desea eliminar la actividad?")) return
 
     try {
-      await fetch(`http://localhost:3000/api/activities/${id}`, { method: 'DELETE' })
+      const user = auth.currentUser
+      if(!user) throw new Error("No estas logueado")
+      const token = await user.getIdToken()
+
+      const response = await fetch(`http://localhost:3000/api/activities/${id}`, {
+         method: 'DELETE',
+         headers: {
+          'Authorization': `Bearer ${token}`
+         } 
+        })
+
+      if(!response.ok) throw new Error("Error del servidor o permiso denegado")
+        
       setActivities(prev => prev.filter(act => act.id !== id))
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error:any) {
       console.log("Error:", error)
-      alert("Error al eliminar")
+      alert("Error al eliminar" + error.message)
     }
   }
 
   //Actualizar actividad
   const updateActivity = async (id: string, updates: Partial<Activity>) => {
+      
     try {
-      await fetch(`http://localhost:3000/api/activities/${id}`, {
+
+      const user = auth.currentUser
+      if(!user) throw new Error("No estás logueado")
+      
+      const token = await user.getIdToken()
+
+      const response = await fetch(`http://localhost:3000/api/activities/${id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {   
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+        },
         body: JSON.stringify(updates)
       })
 
-      //Actualizacion Optimista
-      //actualiza la lista localmente al instante.
-      setActivities(prev => prev.map(act =>
-         act.id === id ? {...act, ...updates} : act //fusiona dos objetos act + updates
-        ))
-
-      return true
+      if(!response.ok) throw new Error("Error del servidor o permiso denegado")
+   
+    await fecthActivities();
+    return true
+      
     } catch (error) {
       console.log('Error', error)
       alert('Error al actualizar')

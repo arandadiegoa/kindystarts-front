@@ -8,6 +8,7 @@ import { ActivityEditModal } from "@/components/ActivityEditModal";
 import { useActivities, type Activity } from "@/hook/useActivities";
 import { useState } from "react";
 import { ActivityCreateModal } from "@/components/ActivityCreateModal";
+import { formatDate } from "@/lib/utils";
 
 export function ActivitiesAdm() {
 
@@ -65,7 +66,7 @@ export function ActivitiesAdm() {
             <ActivityCard
               key={index}
               title={activity.title}
-              date={activity.date}
+              date={formatDate(activity.date)}
               description={activity.description}
               photos={activity.photos}
             />
