@@ -3,44 +3,56 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useContactForm } from "@/hook/useContactForm";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CheckCircle } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
 //Schema
 const formSchema = z.object({
-  nombre: z.string()
+  name: z.string()
     .min(6, {message: "Debe tener al menos 4 caracteres"
   }),
   email: z.email({
     message: "Por favor, ingresa un email válido",
   }),
-   telephone: z
+   phone: z
      .string()
      .min(10, { message: "Debe tener al menos 10 caracteres" })
      .regex(/^[0-9]+$/, { message: "El teléfono solo debe contener números"
     }),
-    descripcion: z.string()
-    .max(500, {message: "Tu mensaje no puede superar los 500 caracteres"})
+    message: z.string()
+    .min(10, { message: "El mensaje debe tener al menos 10 caracteres"})
+    .max(500, { message: "Tu mensaje no puede superar los 500 caracteres"})
 });
 
 export function Contact(){
+
+  const { sendMessage, isSending } = useContactForm()
+  const [success, setSuccess] = useState(false)
 
     //Validacion con Zod
     const form = useForm({
       resolver: zodResolver(formSchema),
       defaultValues: {
-        nombre: "",
+        name: "",
         email: "",
-        telephone: "",
-        descripcion: "",
+        phone: "",
+        message: "",
       },
     });
   
     type ContactFormValues = z.infer<typeof formSchema>;
   
-    function onSubmit(values: ContactFormValues) {
-      console.log("Datos validados", values);
+    const onSubmit = async (values: ContactFormValues) => {
+      const sent = await sendMessage(values)
+      if(sent){
+        setSuccess(true)
+        form.reset()
+        setTimeout(() => setSuccess(false), 5000)
+      }
     }
   return (
      <div className="flex items-center justify-center min-h-screen mt-10">
@@ -52,12 +64,22 @@ export function Contact(){
           </CardDescription>
         </CardHeader>
 
-        <Form {...form}>
+        {success ? (
+          <div className="flex flex-col items-center justify-center py-10 text-center text-green-600 animate-in fade-in">
+              <CheckCircle className="h-16 w-16 mb-4" />
+              <h3 className="text-xl font-bold">¡Mensaje Enviado!</h3>
+              <p className="text-muted-foreground mt-2">Gracias por escribirnos.</p>
+              <Button variant="outline" className="mt-6" onClick={() => setSuccess(false)}>
+              Enviar otro mensaje
+              </Button>
+          </div>
+        ): (
+          <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <CardContent className="grid gap-4">
               <FormField
                 control={form.control}
-                name="nombre"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Nombre y Apellido</FormLabel>
@@ -91,7 +113,7 @@ export function Contact(){
               />
               <FormField
                 control={form.control}
-                name="telephone"
+                name="phone"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Teléfono</FormLabel>
@@ -104,7 +126,7 @@ export function Contact(){
               />
               <FormField
                 control={form.control}
-                name= "descripcion"
+                name= "message"
                 render={({ field }) =>(
                   <FormItem>
                     <FormLabel>Mensaje</FormLabel>
@@ -123,12 +145,13 @@ export function Contact(){
             </CardContent>
 
             <CardFooter>
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full" disabled={isSending}>
                 Enviar Mensaje
               </Button>
             </CardFooter>
           </form>
         </Form>
+        )}
       </Card>
     </div>
   )

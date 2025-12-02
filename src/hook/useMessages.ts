@@ -11,7 +11,7 @@ export interface Message {
   read: boolean
 }
 
-const API_URL = 'http://localhost:300/api/messages' 
+const API_URL = 'http://localhost:3000/api/messages' 
 
 export function useMessages() {
    const [messages, setMessages] = useState<Message[]>([])
