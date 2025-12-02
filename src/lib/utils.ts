@@ -1,3 +1,4 @@
+import { auth } from "@/firebase";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -21,4 +22,18 @@ export const formatDate = (dateString: string | undefined) => {
     console.log('Error', error)
     return dateString
   }
+}
+
+export const getAuthHeaders = async () => {
+  const user = auth.currentUser
+  
+  if(!user) throw new Error('No estas logueado')
+  
+  const token = await user.getIdToken()
+
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  }
+    
 }
