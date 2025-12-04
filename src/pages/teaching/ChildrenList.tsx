@@ -15,9 +15,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { listHallGreen } from "@/data/authData";
+import { useUsers } from "@/hook/useUsers";
 
 export function ChildrenList() {
+  const { users } = useUsers();
+
+  //Get role Family
+  const childs = users.filter((user) => user.role === "family")
+
   return (
     <div className="flex flex-col gap-6 m-3">
       <GoBackButton />
@@ -27,34 +32,41 @@ export function ChildrenList() {
       </div>
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl md:text-3xl">“Los peques de la Sala 🌼”</CardTitle>
+          <CardTitle className="text-xl md:text-3xl">
+            “Los peques de la Sala 🌼”
+          </CardTitle>
           <CardDescription>
-            En este espacio podés consultar la información importante de cada niño o niña que forma parte de la sala.
+            En este espacio podés consultar la información importante de cada
+            niño o niña que forma parte de la sala.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="text-center">ID</TableHead>
-                <TableHead className="text-center">Nombre</TableHead>
-                <TableHead className="text-center">Apellido</TableHead>
+                <TableHead className="text-center">Nombre y Apellido</TableHead>
                 <TableHead className="text-center">Fecha de Nacimiento</TableHead>
-                <TableHead className="text-center">Teléfono</TableHead>
-                <TableHead className="text-center">Contacto</TableHead>
+                <TableHead className="text-center">Tutor/Padre/Madre</TableHead>
+                <TableHead className="text-center">Importante</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {listHallGreen.map((hall) => (
-                <TableRow className="text-center" key={hall.id}>
-                  <TableCell className="font-medium">{hall.id}</TableCell>
-                  <TableCell className="font-medium">{hall.name}</TableCell>
-                   <TableCell className="font-medium">{hall.lastName}</TableCell>
-                    <TableCell className="font-medium">{hall.date}</TableCell>
-                    <TableCell className="font-medium">{hall.telephone}</TableCell>
-                  <TableCell className="font-medium">{hall.contact}</TableCell>
-                </TableRow>
-              ))}
+                {childs.map((hall) => (
+                    <TableRow className="text-center" key={hall.uid}>
+                      <TableCell className="font-medium">{hall.name}</TableCell>
+                      <TableCell className="font-medium">
+                        {hall.birthDate}
+                      </TableCell>
+                          <TableCell className="font-medium">
+                        {hall.parentName}
+                      </TableCell>
+                      <TableCell className="font-medium">
+                        {hall.description}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                }
+              
             </TableBody>
           </Table>
         </CardContent>

@@ -46,6 +46,8 @@ const userSchema = z.object({
   parentName: z.string().optional(),
   hall: z.string().optional(),
   phone: z.string().optional(),
+  birthDate: z.string(),
+  description: z.string().optional
 });
 
 export function UserFormModal({
@@ -67,6 +69,8 @@ export function UserFormModal({
       parentName: "",
       hall: "",
       phone: "",
+      birthDate: "",
+      description: ""
     },
   });
 
@@ -80,7 +84,9 @@ export function UserFormModal({
         hall: userToEdit.hall,
         parentName: userToEdit.parentName || "",
         phone: userToEdit.phone || "",
+        birthDate: userToEdit.birthDate,
         password: "",
+        description: ""
       });
     } else {
       form.reset({
@@ -91,6 +97,8 @@ export function UserFormModal({
         parentName: "",
         hall: "",
         phone: "",
+        birthDate: "",
+        description: ""
       });
     }
   }, [userToEdit, isOpen, form]);
@@ -192,6 +200,22 @@ export function UserFormModal({
                     {selectedRole === "family"
                       ? "Nombre del alumno"
                       : "Nombre Completo"}
+                  </FormLabel>
+                  <FormControl>
+                    <Input {...field} value={(field.value as string) || ""} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+             <FormField
+              control={form.control}
+              name="birthDate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                   Fecha de Nacimiento
                   </FormLabel>
                   <FormControl>
                     <Input {...field} value={(field.value as string) || ""} />

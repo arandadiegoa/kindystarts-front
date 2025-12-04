@@ -112,8 +112,11 @@ export function Users() {
               <TableRow>
                 <TableHead>Nombre / Alumno</TableHead>
                 <TableHead className="hidden md:table-cell">Email</TableHead>
+                <TableHead>Teléfono</TableHead>
+                <TableHead>Fecha de nacimiento</TableHead>
                 <TableHead>Rol</TableHead>
                 <TableHead>Sala</TableHead>
+                <TableHead className="text-center">Acciones</TableHead>
               </TableRow>
             </TableHeader>
 
@@ -136,12 +139,24 @@ export function Users() {
                         {user.parentName && (
                           <span className="text-xs text-muted-foreground">Tutor: {user.parentName}</span>
                         )}
-                        <span className="md:hidden text-xs text-muted-foreground">{user.email}</span>
+
+                        {/*Mobile*/}
+                        <div className="md:hidden flex flex-col mt-1 gap-0.5 text-xs text-muted-foreground">
+                          <span>{user.email}</span>
+                          {user.phone && <span>Tel: {user.phone}</span>}
+                        </div>
+
                       </div>
                     </TableCell>
-                    <TableCell className="font-medium">{user.name}</TableCell>
+
                     <TableCell className="hidden md:table-cell">
                       {user.email}
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      {user.phone}
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      {user.birthDate}
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center">

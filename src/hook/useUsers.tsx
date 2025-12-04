@@ -13,6 +13,9 @@ export interface UserData {
   hall?: string
   parentName?: string
   phone?: string
+  birthDate?: string
+  description?: string
+  
 }
 
 export function useUsers(){
