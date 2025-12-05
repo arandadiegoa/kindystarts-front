@@ -1,4 +1,4 @@
-import { ActivityCard } from "@/components/ActivityCard";
+import { ActivityCard } from "@/components/activities/ActivityCard";
 import { GoBackButton } from "@/components/GoBackButton";
 import { Button } from "@/components/ui/button";
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

@@ -6,11 +6,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "./ui/dialog";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
+} from "../ui/dialog";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
 import { ImageIcon, Loader2, Plus, X } from "lucide-react";
 
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -134,7 +134,7 @@ export function ActivityCreateModal({
 
         <div className="flex-1 overflow-y-auto p-6 pt-2 grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="title">Titulo</Label>
+            <Label htmlFor="title">Título</Label>
             <Input
               id="create-title"
               placeholder="Ej: clase de musica"
@@ -149,7 +149,7 @@ export function ActivityCreateModal({
             <Label htmlFor="title">Descripción</Label>
             <Textarea
               id="create-dec"
-              placeholder="Detalles de la activiadad"
+              placeholder="Detalles de la actividad"
               value={formData.description}
               onChange={(e) =>
                 setFormData({ ...formData, description: e.target.value })

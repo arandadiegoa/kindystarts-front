@@ -1,52 +1,21 @@
 import { useState } from "react";
-import { Dialog, DialogContent } from "./ui/dialog";
+import { Dialog, DialogContent } from "../ui/dialog";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./ui/card";
-import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
-
-// 1. Definimos un tipo específico para el Timestamp de Firebase
-type FirebaseTimestamp = { seconds: number; nanoseconds?: number }
-
-// 2. Definimos los tipos aceptados para la fecha
-type DateType = string | Date | FirebaseTimestamp | null | undefined
+} from "../ui/card";
+import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
+import { formatDate } from "@/lib/utils";
 
 interface ActivityCardProps {
   title: string;
-  date: DateType;
+  date: string | Date | { seconds: number} | null | undefined;
   description: string;
   photos: string[];
 }
-
-
-  //Funcion para formatear fecha, evita el error "Objects are not valid as a React child"
-  const formatDate = (date:DateType): string => {
-    
-    if(!date) return ""
-
-    if(typeof date === "string") return date
-
-    try {
-      //TimeStamp de Firebase viene con seconds
-      if(typeof date === 'object' && 'seconds' in date) {
-        return new Date(date.seconds * 1000).toLocaleDateString()
-      }
-      //Si es un objeto Date nativo
-      if(date instanceof Date) {
-        return date.toLocaleTimeString()
-      }
-      //Fallback para otros objetos
-      return String(date)
-
-    } catch (error) {
-      console.log('Error:', error)
-      return ""
-    }
-  }
 
 export function ActivityCard({
   title,
@@ -63,7 +32,6 @@ export function ActivityCard({
     setOpen(true);
   };
 
-  
   //Asegura que siempre sea un array
   const safePhotos = Array.isArray(photos) ? photos : []
 

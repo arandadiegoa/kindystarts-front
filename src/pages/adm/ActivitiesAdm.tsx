@@ -1,13 +1,13 @@
-import { ActivityCard } from "@/components/ActivityCard";
+import { ActivityCard } from "@/components/activities/ActivityCard";
 import { GoBackButton } from "@/components/GoBackButton";
 import { Button } from "@/components/ui/button";
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertCircle, Edit, Loader2, PlusCircle, Trash } from "lucide-react";
-import { ActivityEditModal } from "@/components/ActivityEditModal";
+import { ActivityEditModal } from "@/components/activities/ActivityEditModal";
 
 import { useActivities, type Activity } from "@/hook/useActivities";
 import { useState } from "react";
-import { ActivityCreateModal } from "@/components/ActivityCreateModal";
+import { ActivityCreateModal } from "@/components/activities/ActivityCreateModal";
 import { formatDate } from "@/lib/utils";
 
 export function ActivitiesAdm() {
